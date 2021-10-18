@@ -13,7 +13,7 @@ const upload = require('express-fileupload')
 
 const app = express();
 // ** MIDDLEWARE ** //
-const whitelist = ['http://localhost:3000', 'http://localhost:5000', 'https://app-mediatheque.herokuapp.com']
+const whitelist = ['http://localhost:3000', 'http://localhost:5000', 'https://mediatheque-app.herokuapp.com']
 const corsOptions = {
     origin: function (origin, callback) {
         console.log("** Origin of request " + origin)
