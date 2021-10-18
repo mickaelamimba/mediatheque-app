@@ -10,6 +10,7 @@ const cors = require("cors");
 const compression = require("compression");
 const helmet = require("helmet");
 const upload = require('express-fileupload')
+const {models} = require("mongoose");
 
 const app = express();
 // ** MIDDLEWARE ** //
@@ -43,6 +44,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('models',models)
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
