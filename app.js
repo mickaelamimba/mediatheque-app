@@ -14,6 +14,7 @@ const compression = require("compression");
 const helmet = require("helmet");
 const upload = require('express-fileupload')
 const {models} = require("mongoose");
+const getRoleMiddleware = require("./utils/getRoleMiddeleware");
 
 const app = express();
 // ** MIDDLEWARE ** //
@@ -46,9 +47,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public/images', express.static(__dirname +'/public/images/' ))
 app.set('models',models)
-
+app.use(getRoleMiddleware)
 
 app.use('/',bookRouter)
 app.use('/user', usersRouter)
