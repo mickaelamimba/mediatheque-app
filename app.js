@@ -31,15 +31,27 @@ const corsOptions = {
         }
     }
 }
-app.use(cors(corsOptions))
+app.options('*', cors())
+app.use(cors({
+    credentials: true, origin: true,
+    corsOptions
+}))
 app.use(compression())
 app.use(helmet());
 app.use(upload({
     limits: { fileSize: 50 * 1024 * 1024 },
 
 }));
+
+const uri = "mongodb+srv://mickael973:Ping3toor@cluster0.f6hrn.mongodb.net/app-mediatheque?retryWrites=true&w=majority";
+/*const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+    const collection = client.db("test").collection("devices");
+    // perform actions on the collection object
+    client.close();
+});*/
 const MONGODB_URL =process.env.MONGODB_URL ||"mongodb://localhost:27017/mediatheque"
-mongoose.connect(MONGODB_URL,{
+mongoose.connect(uri,{
     useNewUrlParser: true,
     useUnifiedTopology:true,
 })
@@ -62,7 +74,7 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')));
 // Handle React routing, return all requests to React app
     app.get('*', function(req, res) {
-        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+        res.sendFile(path.resolve(__dirname, 'client,build', 'index.html'));
     });
 }
 module.exports = app;
