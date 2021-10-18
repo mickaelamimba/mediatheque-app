@@ -32,10 +32,12 @@ const PageToAddBook = ({book,getBook}) => {
                     </div>
 
                 ):(
+                    book.book.docs ?
                     book.book.docs.map((item,i)=>(
                         <BookPreview key={i} {...item}/>
 
-                    ))
+                    )):
+                        <p>not book in database </p>
 
                 )
 

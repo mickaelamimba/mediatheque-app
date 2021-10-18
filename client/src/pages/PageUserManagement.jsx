@@ -31,10 +31,11 @@ const PageUserManagement = ({getUser,user}) => {
                         <h2>{user.error}</h2>
                     </th>
 
-                ):(
+                ):(user.user?
                     user.user.map((item,i)=>(
                         <UserTable key={i} {...item}/>
-                    ))
+                    )):
+                        <p>user not fund</p>
                 )
 
                 }

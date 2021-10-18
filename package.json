@@ -1,12 +1,12 @@
 {
   "name": "mediatheque-app",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "heroku-postbuild": "cd client && yarn install && yarn install --only=dev --no-shrinkwrap && yarn run build",
     "start": "node ./bin/www",
     "server": "nodemon ./bin/www",
-    "client": "yarn start --prefix client",
+    "client": "npm run start --prefix client",
     "dev": "concurrently \" yarn server \" \"yarn client\""
   },
   "dependencies": {
@@ -26,6 +26,7 @@
     "mongoose-type-email": "^1.1.2",
     "nodemon": "^2.0.13",
     "sharp": "^0.29.1",
+    "sass": "^1.42.1",
     "uid2": "^1.0.0",
     "uuid": "^8.3.2"
   },
