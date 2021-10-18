@@ -3,8 +3,11 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+
+const usersRouter = require('./routes/user');
+const bookRouter = require('./routes/book')
+const customerRouter = require('./routes/customer')
+const loanRouter = require('./routes/loan')
 const mongoose = require("mongoose");
 const cors = require("cors");
 const compression = require("compression");
@@ -46,8 +49,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('models',models)
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
+app.use('/',bookRouter)
+app.use('/user', usersRouter)
+app.use('/customer', customerRouter)
+app.use('/loan',loanRouter)
 
 
 if (process.env.NODE_ENV === 'production') {

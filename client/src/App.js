@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+
+import{ Route, Switch} from 'react-router-dom'
+
+import Layout from "./component/Lyaout/Layout";
+import PageToAddBook from "./pages/PageToAddBook";
+import PageCatalogueBook from "./pages/PageCatalogueBook";
+import PageUserManagement from "./pages/PageUserManagement";
+import {OpenModalProvider} from "./context/OpenModalContext";
+
+
+
+
 
 function App() {
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <OpenModalProvider>
+          <Layout>
+            <Switch>
+              <Route exact path="/">
+
+                <PageCatalogueBook/>
+              </Route>
+              <Route path="/ajouter-un-livre">
+                <PageToAddBook/>
+              </Route>
+              <Route path="/gestions-utilisateurs">
+
+                <PageUserManagement/>
+
+
+
+              </Route>
+
+            </Switch>
+
+          </Layout>
+        </OpenModalProvider>
+
   );
 }
 
