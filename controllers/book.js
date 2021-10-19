@@ -19,10 +19,6 @@ const getBooks = async(req,res)=>{
             allBooks = await  Book.find()
         }
 
-
-
-
-
         return res.json(allBooks)
     }catch (e) {
         return res.json(e.message)

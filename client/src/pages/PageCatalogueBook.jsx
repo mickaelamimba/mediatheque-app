@@ -43,7 +43,7 @@ const PageCatalogueBook = ({book,getBook}) => {
                     ):(
 
                         <Row  xs={1} md={2} lg={3} className="g-4">
-                            { book.book.docs ?
+                            { book.book.docs  ?
                                 book.book.docs.map((item,i)=>(
                                         <BookCard key={i}  {...item}/>
 

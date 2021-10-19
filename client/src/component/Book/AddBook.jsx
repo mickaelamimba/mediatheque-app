@@ -9,7 +9,7 @@ const AddBook = ({postBook}) => {
     const handleSubmit = (values)=>{
         let picture = new FormData();
         picture.append('picture',file)
-        picture.append('token',"6uqOFm6BqILZJgTH")
+        picture.append('token',"662yX6SqkNsAUINz")
         picture.append('title',values.title)
         picture.append('releaseDate',values.releaseDate)
         picture.append('description',values.description)

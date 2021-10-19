@@ -1,5 +1,5 @@
 const encryptPassword = require("../utils/encryptPassword");
-const {token} = require("morgan");
+
 
 const customerGet =async(req,res)=>{
     try{
