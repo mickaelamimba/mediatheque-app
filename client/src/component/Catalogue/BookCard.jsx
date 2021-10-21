@@ -1,7 +1,14 @@
 import React from 'react';
 import {Card, Col, Stack} from "react-bootstrap";
+import axios from "axios";
 
-const BookCard = ({title,picture,releaseDate,description,author,genre,available}) => {
+const BookCard = ({title,picture,releaseDate,description,author,genre,available,_id}) => {
+    const onClickLoan= async(id)=>{
+        const data = {book :id,
+            token:'2e4qXOnax6Dlvi7S'
+        }
+         await axios.post('/loan-create',data)
+    }
     return (
         <Col>
             <Card>
@@ -17,7 +24,7 @@ const BookCard = ({title,picture,releaseDate,description,author,genre,available}
                     <button className="btn btn-info m-2">Detail</button>
                     {!available?
                         <button className="btn btn-primary" disabled>Emprunter</button>:
-                        <button className="btn btn-primary" >Emprunter</button>
+                        <button className="btn btn-primary" onClick={()=>onClickLoan(_id)} >Emprunter</button>
                     }
                 </Card.Body>
                 <Card.Footer className="text-muted">

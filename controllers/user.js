@@ -72,15 +72,17 @@ const userUpdate = async(req,res)=>{
 const userLogin = async(req,res)=>{
     try{
         if (!req.body.email ||!req.body.password){
-           return res.json('email or password missing')
+           return res.json({error :'email or password missing'})
         }
+
         const User = req.app.get('models').User
         const topVerifyUser = await User.findOne({email: req.body.email})
+
         if(topVerifyUser.validateAccount !== true){
-            return res.json('user not validate')
+            return res.json({error :'user not validate'})
         }
         if(!topVerifyUser){
-            return res.json('No user found')
+            return res.json({error :'No user found'})
         }
         res.json(decryptPassword(topVerifyUser, req.body.password))
 
@@ -88,5 +90,21 @@ const userLogin = async(req,res)=>{
         res.json(e.message)
     }
 }
+const validateUser = async(req,res)=>{
+    try {
+        if (!req.body.email ){
+            return res.json('user not valid')
+        }
+        const model = req.app.get('models')
+        const User = req.app.get('models').User
 
-module.exports = {userCreat,userGet,userUpdate,userDelete,userLogin}
+        const topVerifyUser = await User.findOne({email: req.body.email})
+        const modify = await User.findByIdAndUpdate(topVerifyUser._id, {validateAccount:true})
+        const toModifyCustomer = await model.Customer.findOneAndUpdate(topVerifyUser._id, {status:'Valide'})
+        res.json({message: 'utilisateur vadlider'})
+    }catch (err){
+        res.json(err)
+    }
+}
+
+module.exports = {userCreat,userGet,userUpdate,userDelete,userLogin,validateUser}

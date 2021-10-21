@@ -3,7 +3,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-
 const usersRouter = require('./routes/user');
 const bookRouter = require('./routes/book')
 const customerRouter = require('./routes/customer')
@@ -32,11 +31,8 @@ const corsOptions = {
         }
     }
 }
-app.options('*', cors())
-app.use(cors({
-    credentials: true, origin: true,
-    corsOptions
-}))
+
+app.use(cors(corsOptions))
 app.use(compression())
 app.use(helmet());
 app.use(upload({
@@ -44,13 +40,13 @@ app.use(upload({
 
 }));
 
-const uri = process.env.MONGODB_URL || "mongodb+srv://mickael973:Ping3toor@cluster0.f6hrn.mongodb.net/app-mediatheque?retryWrites=true&w=majority";
-
+//const uri = process.env.MONGODB_URL || "mongodb+srv://mickael973:Ping3toor@cluster0.f6hrn.mongodb.net/app-mediatheque?retryWrites=true&w=majority";
+const uri = process.env.MONGODB_URL || "mongodb://localhost:27017/mediatheque"
 mongoose.connect(uri,{
     useNewUrlParser: true,
     useUnifiedTopology:true,
 })
-app.use(logger('tiny'));
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -58,19 +54,12 @@ app.use('/public/images', express.static(__dirname +'/public/images/' ))
 app.set('models',models)
 app.use(getRoleMiddleware)
 
-app.use('/',bookRouter)
-app.use('/user', usersRouter)
-app.use('/customer', customerRouter)
-app.use('/loan',loanRouter)
-app.use(express.static('client/build'));
+app.use(bookRouter)
+app.use( usersRouter)
+app.use( customerRouter)
+app.use(loanRouter)
 
 
-if (process.env.NODE_ENV === 'production') {
-    // Serve any static files
-    app.use(express.static(path.join('client/build')));
-// Handle React routing, return all requests to React app
-    app.get('*', function(req, res) {
-        res.sendFile(path.join(__dirname, 'client','build', 'index.html'));
-    });
-}
+
+
 module.exports = app;

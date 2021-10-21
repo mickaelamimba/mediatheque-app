@@ -1,7 +1,14 @@
 import React from 'react';
 import moment from 'moment';
+import axios from "axios";
 
-const UserTable = ({user,status}) => {
+const UserTable = ({user,status,setUserToValidate}) => {
+    const handelValidate= async(email)=>{
+        const data = {email :email}
+        const res = await axios.post('/validate',data)
+        setUserToValidate(res.data.message)
+        console.log(res)
+    }
     return (
         <tr>
             <th >{user.name}</th>
@@ -11,7 +18,7 @@ const UserTable = ({user,status}) => {
             <td>{user.address}</td>
             <td>{status}</td>
             <td>
-                {!user.validateAccount? <button className="btn btn-outline-warning">Valider</button>:
+                {!user.validateAccount? <button onClick={()=>handelValidate(user.email)}  className="btn btn-outline-warning">Valider</button>:
                     <button className="btn btn-success" disabled>Valider</button>
 
                 }

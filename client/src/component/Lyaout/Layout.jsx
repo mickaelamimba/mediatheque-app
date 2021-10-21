@@ -4,6 +4,7 @@ import { useOpenModal} from "../../context/OpenModalContext";
 import Menu from "./Menu/Menu";
 import BookOfCanvas from "../Book/BookOfCanvas";
 
+
 const Layout = ({children}) => {
     document.title ='Climatique'
             const {show,handleSubmitOffcanvas}=useOpenModal()

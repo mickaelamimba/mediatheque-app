@@ -19,7 +19,7 @@ const LoginForm = ({handleLogin}) => {
                     <Form className='card p-5 m-5'>
 
                         <div className='mb-3'>
-                            <Field className='form-control' name="email" placeholder="Email"  />
+                            <Field className='form-control' type='email' name="email" placeholder="Email"  />
                             <ErrorMessage className='text-danger' name="email" component="p" />
                         </div>
                         <div className='mb-3 '>
@@ -27,7 +27,7 @@ const LoginForm = ({handleLogin}) => {
                             <ErrorMessage className='text-danger' name="password" component="p"/>
                         </div>
 
-                        <button className=" btn btn-primary" type="submit">Se Connecter</button>
+                        <button className=" btn btn-primary"  type="submit">Se Connecter</button>
 
                     </Form>
                 )}

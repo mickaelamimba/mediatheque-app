@@ -1,5 +1,10 @@
 const path = require("path");
 const Resize = require("../utils/Resize");
+const oneBook =async (req, res)=>{
+    const models = req.app.get('models')
+   const book= models.Book.findOne({_id: req.query})
+    res.json()
+}
 const getBooks = async(req,res)=>{
     try{
         let allBooks
@@ -11,9 +16,12 @@ const getBooks = async(req,res)=>{
             limit:parseInt(limit,10)||3,
 
         }
+        if(req.query.load){
+            allBooks = await  Book.find({})
+        }
 
         if(req.query.page ){
-            allBooks = await  Book.paginate({loan:false},pagesOptions)
+           allBooks = await  Book.paginate({loan:false},pagesOptions)
 
         }else{
             allBooks = await  Book.find()
@@ -27,25 +35,26 @@ const getBooks = async(req,res)=>{
 
 const postBook = async(req, res)=>{
     try{
+
         let {...files}=req.files
         let file = files.picture
         if(req.role !== 'Employe'){
-       return res.status(400).send({message: 'Unauthorized'})
+       return res.status(400).join({message: 'Unauthorized'})
         }
 
         if(!file|| Object.keys(file).length === 0){
-            return res.status(400).send({message:'No files were uploaded'})
+            return res.status(400).join({message:'No files were uploaded'})
         }
         if(file){
             let type = file.mimetype.split('/')[1]
             if(type !== 'jpeg'){
-                return res.status(400).send({message:'is note [ jpg - png - jpeg ] file'})
+                return res.status(400).join({message:'is note [ jpg - png - jpeg ] file'})
             }
 
             const imagePath = path.join(__dirname,'../public/images')
             const fileUpload = new Resize(imagePath)
             if(!file){
-               return res.status(401).send({errr: 'place an image'})
+               return res.status(401).json({message: 'place an image'})
             }
 
             let filename = await fileUpload.save(file.data)
@@ -75,4 +84,4 @@ const postBook = async(req, res)=>{
 
 }
 
-module.exports = {postBook,getBooks}
+module.exports = {postBook,getBooks,oneBook}

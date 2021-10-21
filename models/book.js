@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const mongoosePaginate = require('mongoose-paginate-v2');
-const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching');
+
 const BookSchema = new mongoose.Schema({
     title:{type: String,require: true},
     picture: {type: String,require: true},
@@ -14,9 +14,7 @@ const BookSchema = new mongoose.Schema({
     user:{type:mongoose.Schema.Types.ObjectId, ref:'User'},
 
 })
-BookSchema.plugin(mongoose_fuzzy_searching,{fields:[
-        'title','description','author','genre','releaseDate'
-    ]})
+
 BookSchema.plugin(mongoosePaginate)
 const  Book = mongoose.model('Book',BookSchema)
 module.exports = Book

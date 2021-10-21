@@ -1,8 +1,9 @@
 const express = require('express');
-const {loanCreat} = require("../controllers/loan");
+const {loanCreat,loanGet} = require("../controllers/loan");
 const router = express.Router();
 
-router.post('/',loanCreat)
+router.get('/loan',loanGet)
+router.post('/loan-create',loanCreat)
 
 
 module.exports = router

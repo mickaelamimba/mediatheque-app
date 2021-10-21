@@ -6,6 +6,7 @@ const loanSchema = new mongoose.Schema({
         limit :{type:Date, require: false,}
     },
     dateOfLoan :{type:Date, require: true},
+    selected:{type: Boolean,require:true, default: true},
     user:{type:mongoose.Schema.Types.ObjectId, ref:'User'},
     book:{type:mongoose.Schema.Types.ObjectId, ref:'Book'},
 

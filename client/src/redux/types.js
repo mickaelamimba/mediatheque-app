@@ -1,5 +1,10 @@
 export const GET_BOOK ='GET_BOOK'
+export const GET_LOAN ='GET_LOAN'
+export const GET_ERROR ='GET_ERROR'
 export const ADD_BOOK ='ADD_BOOKS'
+
+export const USER_CREATE ='USER_CREATE'
+export const GET_ONE_BOOK = 'GET_ONE_BOOK'
 export const BOOK_ERROR ='BOOK_ERROR'
 export const USER_ERROR ='USER_ERROR'
 export const GET_USER ='GET_USER'

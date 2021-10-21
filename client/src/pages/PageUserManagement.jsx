@@ -4,16 +4,23 @@ import {connect} from "react-redux";
 import {getUser} from "../redux/actions/usersAction";
 import UserTable from "../component/user/UserTable";
 import TableHead from "../component/user/TableHead";
-import {Spinner} from "react-bootstrap";
+import {Alert, Spinner} from "react-bootstrap";
 
 const PageUserManagement = ({getUser,user}) => {
-    const [userToValidate, setUserToValidate]= useState(false)
+    const [userToValidate, setUserToValidate]= useState('')
     useEffect(() =>{
         getUser()
-    },[getUser])
-    console.log(user)
+    },[getUser,userToValidate])
+
     return (
+
         <section>
+            {userToValidate&&
+            <Alert  variant='success'>
+                {userToValidate}
+            </Alert>
+            }
+
             <h1>Gestion des utilsateur</h1>
             <hr/>
             <TableHead>
@@ -33,7 +40,7 @@ const PageUserManagement = ({getUser,user}) => {
 
                 ):(user.user?
                     user.user.map((item,i)=>(
-                        <UserTable key={i} {...item}/>
+                        <UserTable key={i} setUserToValidate={setUserToValidate} {...item}/>
                     )):
                         <p>user not fund</p>
                 )

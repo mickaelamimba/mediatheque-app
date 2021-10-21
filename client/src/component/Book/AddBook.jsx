@@ -4,12 +4,16 @@ import {Formik, Form, Field, ErrorMessage} from 'formik';
 import {connect} from "react-redux";
 import {postBook} from "../../redux/actions/bookAction";
 
+
 const AddBook = ({postBook}) => {
     const[file, setFile]=useState({})
+    const isAuthenticated = window.localStorage.getItem('isAuthenticated')
+    let usrRole =JSON.parse(isAuthenticated)
     const handleSubmit = (values)=>{
+
         let picture = new FormData();
         picture.append('picture',file)
-        picture.append('token',"662yX6SqkNsAUINz")
+        picture.append('token',usrRole.token)
         picture.append('title',values.title)
         picture.append('releaseDate',values.releaseDate)
         picture.append('description',values.description)
@@ -23,7 +27,7 @@ const AddBook = ({postBook}) => {
             <Formik initialValues={{title:'', picture:'',releaseDate:'', description:'',author:'',genre:''}}
                     onSubmit={handleSubmit}>
                 {({isSubmitting,setFieldValue})=>(
-                    <Form>
+                    <Form >
                         <fieldset className="container">
                             <legend>Ajouter un livre</legend>
                             <div className='mb-3'>
@@ -72,7 +76,6 @@ const AddBook = ({postBook}) => {
 };
 const mapStateToProps  = (state) => ({
     book:state.book
-
 
 })
 

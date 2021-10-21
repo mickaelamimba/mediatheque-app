@@ -1,4 +1,4 @@
-import {ADD_BOOK, BOOK_ERROR, GET_BOOK} from "../types";
+import {ADD_BOOK, BOOK_ERROR, GET_BOOK, GET_ONE_BOOK} from "../types";
 
 
 const initialState = {
@@ -22,11 +22,18 @@ export default(state = initialState, action)=>{
                 error:action.payload,
             }
         case ADD_BOOK :
+
             return {
                 ...state,
                 book:[...state.book, action.payload],
                 loading: false
+
             }
+        case GET_ONE_BOOK :
+            return {
+                ...state,
+                book:[state.book.filter(value => value !== action.payload)]
+                }
 
         default: return state
     }

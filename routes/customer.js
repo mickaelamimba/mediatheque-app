@@ -3,7 +3,7 @@ const router = express.Router();
 const {customerGet, customerCreat, customerDelete, customerUpdate} = require("../controllers/customer");
 
 
-router.get('/',customerGet)
+router.get('/customer',customerGet)
 router.post('/customer-post',customerCreat)
 router.post('/customer-delete',customerDelete)
 router.post('/customer-update',customerUpdate)
