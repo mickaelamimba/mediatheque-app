@@ -6,7 +6,7 @@ import BookOfCanvas from "../Book/BookOfCanvas";
 
 
 const Layout = ({children}) => {
-    document.title ='Climatique'
+    document.title ='Mediatheque'
             const {show,handleSubmitOffcanvas}=useOpenModal()
     return (
         <>
